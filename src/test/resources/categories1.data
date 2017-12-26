@@ -1,0 +1,820 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Авто",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 0
+    },
+    {
+      "id": 2,
+      "name": "Автостраховка",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 1
+    },
+    {
+      "id": 3,
+      "name": "Налоги\/пошлины",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 1
+    },
+    {
+      "id": 4,
+      "name": "Обслуживание",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 1
+    },
+    {
+      "id": 5,
+      "name": "Покупка авто",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 1
+    },
+    {
+      "id": 6,
+      "name": "Ремонт",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 1
+    },
+    {
+      "id": 7,
+      "name": "Топливо",
+      "type": 2,
+      "available": 1,
+      "orderId": 6,
+      "parentId": 1
+    },
+    {
+      "id": 8,
+      "name": "Банк",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 0
+    },
+    {
+      "id": 9,
+      "name": "Комиссия",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 8
+    },
+    {
+      "id": 10,
+      "name": "Оплата услуг банка",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 8
+    },
+    {
+      "id": 11,
+      "name": "Проценты",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 8
+    },
+    {
+      "id": 12,
+      "name": "Дом",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 0
+    },
+    {
+      "id": 13,
+      "name": "Покупка мебели",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 12
+    },
+    {
+      "id": 14,
+      "name": "Покупка посуды",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 12
+    },
+    {
+      "id": 15,
+      "name": "Ремонт",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 12
+    },
+    {
+      "id": 16,
+      "name": "Бытовая техника",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 12
+    },
+    {
+      "id": 17,
+      "name": "Домашние животные",
+      "type": 2,
+      "available": 0,
+      "orderId": 5,
+      "parentId": 0
+    },
+    {
+      "id": 18,
+      "name": "Покупка корма",
+      "type": 2,
+      "available": 0,
+      "orderId": 1,
+      "parentId": 17
+    },
+    {
+      "id": 19,
+      "name": "Другое",
+      "type": 2,
+      "available": 1,
+      "orderId": 6,
+      "parentId": 0
+    },
+    {
+      "id": 20,
+      "name": "Друзья",
+      "type": 2,
+      "available": 1,
+      "orderId": 7,
+      "parentId": 0
+    },
+    {
+      "id": 21,
+      "name": "Еда",
+      "type": 2,
+      "available": 1,
+      "orderId": 8,
+      "parentId": 0
+    },
+    {
+      "id": 22,
+      "name": "Кафе",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 21
+    },
+    {
+      "id": 23,
+      "name": "Обед",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 21
+    },
+    {
+      "id": 24,
+      "name": "Продукты",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 21
+    },
+    {
+      "id": 25,
+      "name": "Ресторан",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 21
+    },
+    {
+      "id": 26,
+      "name": "Коммунальные услуги",
+      "type": 2,
+      "available": 1,
+      "orderId": 11,
+      "parentId": 0
+    },
+    {
+      "id": 27,
+      "name": "Вода",
+      "type": 2,
+      "available": 0,
+      "orderId": 1,
+      "parentId": 26
+    },
+    {
+      "id": 28,
+      "name": "Вывоз мусора",
+      "type": 2,
+      "available": 0,
+      "orderId": 2,
+      "parentId": 26
+    },
+    {
+      "id": 29,
+      "name": "Газ",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 26
+    },
+    {
+      "id": 30,
+      "name": "Земельный налог",
+      "type": 2,
+      "available": 0,
+      "orderId": 4,
+      "parentId": 26
+    },
+    {
+      "id": 31,
+      "name": "Кабельное телевидение",
+      "type": 2,
+      "available": 0,
+      "orderId": 5,
+      "parentId": 26
+    },
+    {
+      "id": 32,
+      "name": "Квартплата",
+      "type": 2,
+      "available": 1,
+      "orderId": 6,
+      "parentId": 26
+    },
+    {
+      "id": 33,
+      "name": "Отопление",
+      "type": 2,
+      "available": 0,
+      "orderId": 7,
+      "parentId": 26
+    },
+    {
+      "id": 34,
+      "name": "Страхование дома",
+      "type": 2,
+      "available": 0,
+      "orderId": 8,
+      "parentId": 26
+    },
+    {
+      "id": 35,
+      "name": "Телефон",
+      "type": 2,
+      "available": 0,
+      "orderId": 9,
+      "parentId": 26
+    },
+    {
+      "id": 36,
+      "name": "Электроэнергия",
+      "type": 2,
+      "available": 1,
+      "orderId": 10,
+      "parentId": 26
+    },
+    {
+      "id": 37,
+      "name": "Красота и Здоровье",
+      "type": 2,
+      "available": 1,
+      "orderId": 12,
+      "parentId": 0
+    },
+    {
+      "id": 38,
+      "name": "Зубной врач",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 37
+    },
+    {
+      "id": 39,
+      "name": "Косметолог",
+      "type": 2,
+      "available": 1,
+      "orderId": 15,
+      "parentId": 42
+    },
+    {
+      "id": 40,
+      "name": "Лечение",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 37
+    },
+    {
+      "id": 41,
+      "name": "Массаж",
+      "type": 2,
+      "available": 1,
+      "orderId": 6,
+      "parentId": 37
+    },
+    {
+      "id": 42,
+      "name": "Салон красоты",
+      "type": 2,
+      "available": 1,
+      "orderId": 7,
+      "parentId": 37
+    },
+    {
+      "id": 43,
+      "name": "Сауна",
+      "type": 2,
+      "available": 1,
+      "orderId": 8,
+      "parentId": 37
+    },
+    {
+      "id": 44,
+      "name": "Страхование жизни",
+      "type": 2,
+      "available": 0,
+      "orderId": 7,
+      "parentId": 37
+    },
+    {
+      "id": 45,
+      "name": "Страхование здоровья",
+      "type": 2,
+      "available": 0,
+      "orderId": 8,
+      "parentId": 37
+    },
+    {
+      "id": 46,
+      "name": "Кредиты",
+      "type": 2,
+      "available": 1,
+      "orderId": 13,
+      "parentId": 0
+    },
+    {
+      "id": 47,
+      "name": "Автокредит",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 46
+    },
+    {
+      "id": 48,
+      "name": "Кредит на жилье",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 46
+    },
+    {
+      "id": 49,
+      "name": "Личное",
+      "type": 2,
+      "available": 1,
+      "orderId": 14,
+      "parentId": 0
+    },
+    {
+      "id": 50,
+      "name": "Благотворительность",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 49
+    },
+    {
+      "id": 51,
+      "name": "Подарки",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 49
+    },
+    {
+      "id": 52,
+      "name": "Налоги\/пошлины",
+      "type": 2,
+      "available": 1,
+      "orderId": 15,
+      "parentId": 0
+    },
+    {
+      "id": 53,
+      "name": "Образование",
+      "type": 2,
+      "available": 1,
+      "orderId": 16,
+      "parentId": 0
+    },
+    {
+      "id": 54,
+      "name": "Одежда",
+      "type": 2,
+      "available": 1,
+      "orderId": 17,
+      "parentId": 0
+    },
+    {
+      "id": 55,
+      "name": "Отдых",
+      "type": 2,
+      "available": 1,
+      "orderId": 18,
+      "parentId": 0
+    },
+    {
+      "id": 56,
+      "name": "Отель",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 55
+    },
+    {
+      "id": 57,
+      "name": "Тур",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 55
+    },
+    {
+      "id": 58,
+      "name": "Развлечение",
+      "type": 2,
+      "available": 1,
+      "orderId": 19,
+      "parentId": 0
+    },
+    {
+      "id": 59,
+      "name": "Вечеринка",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 58
+    },
+    {
+      "id": 60,
+      "name": "Кино",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 58
+    },
+    {
+      "id": 61,
+      "name": "Клуб",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 58
+    },
+    {
+      "id": 62,
+      "name": "Концерт",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 58
+    },
+    {
+      "id": 63,
+      "name": "Семья",
+      "type": 2,
+      "available": 1,
+      "orderId": 20,
+      "parentId": 0
+    },
+    {
+      "id": 64,
+      "name": "Спорт",
+      "type": 2,
+      "available": 1,
+      "orderId": 21,
+      "parentId": 0
+    },
+    {
+      "id": 65,
+      "name": "Бассейн",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 64
+    },
+    {
+      "id": 66,
+      "name": "Бильярд",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 64
+    },
+    {
+      "id": 67,
+      "name": "Боулинг",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 64
+    },
+    {
+      "id": 68,
+      "name": "Покупка тренажера",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 64
+    },
+    {
+      "id": 69,
+      "name": "Тренажерный зал",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 64
+    },
+    {
+      "id": 70,
+      "name": "Транспорт",
+      "type": 2,
+      "available": 1,
+      "orderId": 22,
+      "parentId": 0
+    },
+    {
+      "id": 71,
+      "name": "Аренда транспорта",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 70
+    },
+    {
+      "id": 72,
+      "name": "Общественный транспорт",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 70
+    },
+    {
+      "id": 73,
+      "name": "Поезд",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 70
+    },
+    {
+      "id": 74,
+      "name": "Самолет",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 70
+    },
+    {
+      "id": 75,
+      "name": "Такси",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 70
+    },
+    {
+      "id": 76,
+      "name": "Услуги",
+      "type": 2,
+      "available": 1,
+      "orderId": 23,
+      "parentId": 0
+    },
+    {
+      "id": 77,
+      "name": "Интернет",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 76
+    },
+    {
+      "id": 78,
+      "name": "Мобильная связь",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 76
+    },
+    {
+      "id": 79,
+      "name": "Другое",
+      "type": 1,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 0
+    },
+    {
+      "id": 80,
+      "name": "Зарплата",
+      "type": 1,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 0
+    },
+    {
+      "id": 81,
+      "name": "Подарок",
+      "type": 1,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 0
+    },
+    {
+      "id": 82,
+      "name": "Бытовые предметы",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 12
+    },
+    {
+      "id": 83,
+      "name": "Канцелярия",
+      "type": 2,
+      "available": 1,
+      "orderId": 25,
+      "parentId": 82
+    },
+    {
+      "id": 84,
+      "name": "Семья",
+      "type": 1,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 0
+    },
+    {
+      "id": 85,
+      "name": "Лекарства",
+      "type": 2,
+      "available": 1,
+      "orderId": 11,
+      "parentId": 37
+    },
+    {
+      "id": 86,
+      "name": "Кредит за абонементы в ФХ",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 46
+    },
+    {
+      "id": 87,
+      "name": "Всякая фигня",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 82
+    },
+    {
+      "id": 88,
+      "name": "Одежда длительного пользования",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 54
+    },
+    {
+      "id": 89,
+      "name": "Мелочь",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 54
+    },
+    {
+      "id": 90,
+      "name": "Предметы гигиены",
+      "type": 2,
+      "available": 1,
+      "orderId": 14,
+      "parentId": 37
+    },
+    {
+      "id": 91,
+      "name": "Процент на остаток",
+      "type": 1,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 79
+    },
+    {
+      "id": 92,
+      "name": "Cashback",
+      "type": 1,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 79
+    },
+    {
+      "id": 93,
+      "name": "Транспорт",
+      "type": 2,
+      "available": 1,
+      "orderId": 3,
+      "parentId": 55
+    },
+    {
+      "id": 94,
+      "name": "Визы",
+      "type": 2,
+      "available": 1,
+      "orderId": 4,
+      "parentId": 55
+    },
+    {
+      "id": 96,
+      "name": "Вкусняшки",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 21
+    },
+    {
+      "id": 97,
+      "name": "Анализы",
+      "type": 2,
+      "available": 1,
+      "orderId": 13,
+      "parentId": 37
+    },
+    {
+      "id": 98,
+      "name": "Автошкола",
+      "type": 2,
+      "available": 1,
+      "orderId": 1,
+      "parentId": 53
+    },
+    {
+      "id": 99,
+      "name": "Курсы",
+      "type": 2,
+      "available": 1,
+      "orderId": 2,
+      "parentId": 53
+    },
+    {
+      "id": 100,
+      "name": "Уборка",
+      "type": 2,
+      "available": 1,
+      "orderId": 11,
+      "parentId": 26
+    },
+    {
+      "id": 101,
+      "name": "Экскурсия",
+      "type": 2,
+      "available": 1,
+      "orderId": 5,
+      "parentId": 58
+    },
+    {
+      "id": 102,
+      "name": "Прачечная",
+      "type": 2,
+      "available": 0,
+      "orderId": 12,
+      "parentId": 26
+    },
+    {
+      "id": 103,
+      "name": "Уборка",
+      "type": 2,
+      "available": 0,
+      "orderId": 6,
+      "parentId": 12
+    }
+  ]
+}
