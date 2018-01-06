@@ -23,6 +23,5 @@ fun Route.index() {
             currency = Config.find { Configs.param eq "currency" }.first().value
         }
         call.respondRedirect(locations().href(YearReport(Year.now().value, currency)))
-
     }
 }

@@ -1,9 +1,6 @@
 package com.chitzkoy.financepmreporter.server
 
-import com.chitzkoy.financepmreporter.server.routes.config
-import com.chitzkoy.financepmreporter.server.routes.index
-import com.chitzkoy.financepmreporter.server.routes.transactions
-import com.chitzkoy.financepmreporter.server.routes.upload
+import com.chitzkoy.financepmreporter.server.routes.*
 import com.chitzkoy.financepmreporter.service.ConfigService
 import com.chitzkoy.financepmreporter.service.LoaderService
 import com.chitzkoy.financepmreporter.service.ReportService
@@ -11,6 +8,7 @@ import com.chitzkoy.financepmreporter.util.Property
 import freemarker.cache.ClassTemplateLoader
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.install
+import org.jetbrains.ktor.content.*
 import org.jetbrains.ktor.features.CallLogging
 import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.features.StatusPages
@@ -21,6 +19,9 @@ import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.netty.Netty
 import org.jetbrains.ktor.response.respond
 import org.jetbrains.ktor.routing.Routing
+import org.jetbrains.ktor.routing.get
+import org.jetbrains.ktor.routing.route
+import java.io.File
 
 /**
  * Created by dtikhonov on 13-Nov-17.
@@ -54,5 +55,9 @@ fun Application.module() {
         transactions(reportService)
         upload(LoaderService())
         config(ConfigService())
+
+        static("public") { // it's about URL
+            files("public") // it's about folder under root of project
+        }
     }
 }

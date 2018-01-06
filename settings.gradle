@@ -1,1 +1,3 @@
 rootProject.name = 'finance-pm-reporter'
+include 'frontend'
+include 'backend'

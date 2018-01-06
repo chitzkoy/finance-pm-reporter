@@ -7,6 +7,8 @@ import com.chitzkoy.financepmreporter.model.dao.Configs
 import com.chitzkoy.financepmreporter.service.LoaderService
 import com.chitzkoy.financepmreporter.util.logger
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.ktor.content.file
+import org.jetbrains.ktor.content.static
 import org.jetbrains.ktor.freemarker.FreeMarkerContent
 import org.jetbrains.ktor.locations.get
 import org.jetbrains.ktor.locations.location

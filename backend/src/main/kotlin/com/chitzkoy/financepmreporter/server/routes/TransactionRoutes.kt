@@ -10,7 +10,7 @@ import org.jetbrains.ktor.routing.Route
 /**
  * Created by dtikhonov on 13-Nov-17.
  */
-@location("/{currency}/{year}")
+@location("/report/{currency}/{year}")
 class YearReport(val year: Int, val currency: String)
 
 fun Route.transactions(reportService: ReportService) {

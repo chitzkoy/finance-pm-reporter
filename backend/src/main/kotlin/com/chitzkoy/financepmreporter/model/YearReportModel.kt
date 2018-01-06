@@ -80,7 +80,7 @@ data class YearReportModel(
     fun avgIncome(): Double {
         val monthDistance = getAvgMonths()
         val currentMonth = YearMonth.now().month.value
-        val from = DateTime(year, (currentMonth - monthDistance).toInt(), 1, 0, 0, 0)
+        val from = DateTime(year, currentMonth, 1, 0, 0, 0).minusMonths(monthDistance.toInt())
         val to = DateTime(year, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
         return ( transactionList.incomeExpenses(from..to).first / monthDistance ).roundWithPrecision(2)
     }
@@ -88,7 +88,7 @@ data class YearReportModel(
     fun avgExpenses(): Double {
         val monthDistance = getAvgMonths()
         val currentMonth = YearMonth.now().month.value
-        val from = DateTime(year, (currentMonth - monthDistance).toInt(), 1, 0, 0, 0)
+        val from = DateTime(year, currentMonth, 1, 0, 0, 0).minusMonths(monthDistance.toInt())
         val to = DateTime(year, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
         return ( transactionList.incomeExpenses(from..to).second / monthDistance ).roundWithPrecision(2)
     }

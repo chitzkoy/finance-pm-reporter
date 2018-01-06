@@ -1,6 +1,7 @@
 package com.chitzkoy.financepmreporter.server.routes
 
 import com.chitzkoy.financepmreporter.service.ConfigService
+import org.jetbrains.ktor.content.file
 import org.jetbrains.ktor.freemarker.FreeMarkerContent
 import org.jetbrains.ktor.locations.get
 import org.jetbrains.ktor.locations.location
