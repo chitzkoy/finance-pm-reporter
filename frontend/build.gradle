@@ -37,9 +37,10 @@ repositories {
     mavenCentral()
 }
 
+jar.dependsOn 'bundle'
 bundle.doLast {
     copy {
         from project(':frontend').file('build/bundle')
-        into project(':backend').file('public')
+        into project(':frontend').file('build/resources/main/com/chitzkoy/financepmreporter/resources')
     }
 }
