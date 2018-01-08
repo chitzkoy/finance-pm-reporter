@@ -22,15 +22,17 @@ subprojects {
     ext.kotlin_version = "1.2.10"
     ext.html_version = "0.6.6"
     ext.ktor_version = "0.4.0"
+    ext.react_wrapper_version = "16.2.0-pre.17-kotlin-1.2.0"
 
     repositories {
         mavenLocal()
         jcenter()
         maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
-//        maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
-        maven { url "http://dl.bintray.com/kotlin/ktor" }
-        maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url "https://dl.bintray.com/kotlin/ktor" }
         maven { url "https://dl.bintray.com/kotlin/exposed" }
+        maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url "https://dl.bintray.com/kotlin/kotlinx.html" }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-js-wrappers" }
     }
 }
 

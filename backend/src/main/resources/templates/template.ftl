@@ -5,7 +5,8 @@
 <html>
 <head>
     <title>${title}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
@@ -40,6 +41,7 @@
 </nav>
 <main class="container">
     <#nested "content"/>
+    <div id="root"></div>
 </main>
 </body>
 </html>

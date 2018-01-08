@@ -6,6 +6,8 @@ apply plugin: 'kotlin2js'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile "org.jetbrains:kotlin-react:$react_wrapper_version"
+    compile "org.jetbrains:kotlin-react-dom:$react_wrapper_version"
 }
 
 // configure kotlin compiler
@@ -27,7 +29,7 @@ kotlinFrontend {
 
     webpackBundle {
         bundleName = "main"
-        contentPath = file('src/main/web')
+//        contentPath = file('src/main/web')
     }
 
     sourceMaps = true
