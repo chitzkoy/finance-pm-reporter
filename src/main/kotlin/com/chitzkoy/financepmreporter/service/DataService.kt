@@ -61,9 +61,9 @@ fun getAvgMonthDistance(): Double {
 fun getAvailableYearsRange(): IntRange {
     var minDate = Year.now().value
     var maxDate = Year.now().value
-    var currencies: Iterable<Currency> = emptyList()
+    var currencies: Iterable<Currency>
     var accounts: Iterable<Account> = emptyList()
-    var transactions: Iterable<Transaction> = emptyList()
+    var transactions: Iterable<Transaction>
     transaction {
         currencies = Currency.find { Currencies.shortName eq "RUB" }
         accounts = Account.find { Accounts.currency inList currencies }
@@ -71,8 +71,9 @@ fun getAvailableYearsRange(): IntRange {
         // can't use { Transactions.account inList accounts }; I have no any idea why
         transactions = Transaction.find { Transactions.sourceId.isNotNull() }.sortedBy { it.date }
 
-        minDate = transactions.first().date.year
-        maxDate = transactions.last().date.year
+
+        minDate = if (transactions.count() != 0) transactions.first().date.year else Year.now().value
+        maxDate = if (transactions.count() != 0) transactions.last().date.year else Year.now().value
     }
 
     return minDate..maxDate
