@@ -43,9 +43,9 @@ fun mergeCategories(data1: JsonObject, data2: JsonObject): JsonArray<JsonObject>
     }
 
     val transactions2 = data2["transactions"] as JsonArray<JsonObject>
-    categoryIdReplaceMap.filterNot { entry -> entry.key == entry.value }.forEach { key, value ->
-        transactions2.filter { it["categoryId"] == key }.forEach {
-            it["categoryId"] = value
+    categoryIdReplaceMap.filterNot { entry -> entry.key == entry.value }.forEach { entry ->
+        transactions2.filter { it["categoryId"] == entry.key }.forEach {
+            it["categoryId"] = entry.value
         }
     }
 
@@ -73,9 +73,9 @@ fun mergeCurrencies(data1: JsonObject, data2: JsonObject): JsonArray<JsonObject>
     }
 
     val accounts2 = data2["accounts"] as JsonArray<JsonObject>
-    currencyIdReplaceMap.filterNot { entry -> entry.key == entry.value }.forEach { key, value ->
-        accounts2.filter { it["currencyId"] == key }.forEach {
-            it["currencyId"] = value
+    currencyIdReplaceMap.filterNot { entry -> entry.key == entry.value }.forEach { entry ->
+        accounts2.filter { it["currencyId"] == entry.key }.forEach {
+            it["currencyId"] = entry.value
         }
     }
 
@@ -89,7 +89,7 @@ fun mergeAccounts(data1: JsonObject, data2: JsonObject): JsonArray<JsonObject> {
     val accounts1 = data1["accounts"] as JsonArray<JsonObject>
     val accounts2 = data2["accounts"] as JsonArray<JsonObject>
 
-    val accountIdReplaceMap = hashMapOf<Any?, Any?>()
+    val accountIdReplaceMap = HashMap<Any?, Any?>()
     val lastIdAccounts1 = accounts1.map { it["id"] as Int }.max()!!
     accounts2.forEachIndexed{ index, json ->
         val oldId = json["id"]
@@ -99,9 +99,9 @@ fun mergeAccounts(data1: JsonObject, data2: JsonObject): JsonArray<JsonObject> {
     }
 
     val transactions2 = data2["transactions"] as JsonArray<JsonObject>
-    accountIdReplaceMap.forEach { key, value ->
-        transactions2.filter { it["accountId"] == key }.forEach {
-            it["accountId"] = value
+    accountIdReplaceMap.forEach { entry ->
+        transactions2.filter { it["accountId"] == entry.key }.forEach {
+            it["accountId"] = entry.value
         }
     }
 
@@ -115,7 +115,7 @@ fun mergeTransactions(data1: JsonObject, data2: JsonObject): JsonArray<JsonObjec
     val transactions1 = data1["transactions"] as JsonArray<JsonObject>
     val transactions2 = data2["transactions"] as JsonArray<JsonObject>
 
-    var transactionIdReplaceMap = hashMapOf<Any?, Any?>()
+    var transactionIdReplaceMap = HashMap<Any?, Any?>()
     val lastIdTransaction1 = transactions1.map { it["id"].toString().toInt() }.max()!!
     transactions2.forEachIndexed{ index, json ->
         val oldId = json["id"]
@@ -125,9 +125,9 @@ fun mergeTransactions(data1: JsonObject, data2: JsonObject): JsonArray<JsonObjec
     }
 
     val transfers2 = data2["transfers"] as JsonArray<JsonObject>
-    transactionIdReplaceMap.forEach { key, value ->
-        transfers2.find { it["transactionIdFrom"] == key }?.set("transactionIdFrom", value)
-        transfers2.find { it["transactionIdTo"] == key }?.set("transactionIdTo", value)
+    transactionIdReplaceMap.forEach { entry ->
+        transfers2.find { it["transactionIdFrom"] == entry.key }?.set("transactionIdFrom", entry.value)
+        transfers2.find { it["transactionIdTo"] == entry.key }?.set("transactionIdTo", entry.value)
     }
 
     val transactions = transactions1.toMutableList()
@@ -156,8 +156,8 @@ fun convertToTransfer(transactions: MutableList<JsonObject>, transfers: JsonArra
     var categoryTo : Int? = null
 
     transaction {
-        categoryFrom = Config.find { Configs.param eq "convertFromCategoryTransfer" }.first().value?.toInt()
-        categoryTo = Config.find { Configs.param eq "convertToCategoryTransfer" }.first().value?.toInt()
+        categoryFrom = Config.find { Configs.param eq "convertFromCategoryTransfer" }.first().value.toInt()
+        categoryTo = Config.find { Configs.param eq "convertToCategoryTransfer" }.first().value.toInt()
     }
 
     if (categoryFrom == null || categoryTo == null) {
@@ -168,8 +168,8 @@ fun convertToTransfer(transactions: MutableList<JsonObject>, transfers: JsonArra
     transactions
             .filter { it["categoryId"] == categoryFrom || it["categoryId"] == categoryTo }
             .groupBy { it["date"] }.filter { it.value.size > 1 }
-            .forEach { _, list ->
-                val pair = list.groupBy { it["sum"] }.filter { it.value.size > 1 }
+            .forEach { entry ->
+                val pair = entry.value.groupBy { it["sum"] }.filter { it.value.size > 1 }
                 for (sum in pair.keys) {
                     if (pair[sum] == null || pair[sum]!!.size < 2) {
                         continue
@@ -209,7 +209,7 @@ private fun findDuplicatingCategories(categories1: JsonArray<JsonObject>, catego
         return true
     }
 
-    val categoryIdReplaceMap = hashMapOf<Any?, Any?>()
+    val categoryIdReplaceMap = HashMap<Any?, Any?>()
 
     categories1.forEach { category ->
         for (duplicateCandidate in categories2) {
@@ -243,7 +243,7 @@ private fun findDuplicatingCurrencies(currencies1: JsonArray<JsonObject>, curren
         return true
     }
 
-    val currencyIdReplaceMap = hashMapOf<Any?, Any?>()
+    val currencyIdReplaceMap = HashMap<Any?, Any?>()
 
     currencies1.forEach { category ->
         for (duplicateCandidate in currencies2) {
