@@ -39,21 +39,28 @@ data class YearReportModel(
 
     fun getPaginatorYears(): List<Int> {
         val available = getAvailableYears()
+        val maxIndex = available.size - 1
         val indexOfCurrent = available.indexOf(year)
 
-        return if (indexOfCurrent == 0 || indexOfCurrent == available.size - 1) {
+        //todo add test
+        return if (indexOfCurrent == 0 || indexOfCurrent == maxIndex) {
             val first = indexOfCurrent
-            val last = Math.abs(indexOfCurrent - 2)
+            val last = Math.min(Math.abs(indexOfCurrent - 2), maxIndex)
             if (first > last) available.subList(last, first + 1) else available.subList(first, last + 1)
         } else {
             val first = Math.abs(indexOfCurrent - 1)
-            val last = Math.abs(indexOfCurrent + 1)
+            val last = Math.min(Math.abs(indexOfCurrent + 1), maxIndex)
             if (first > last) available.subList(last, first + 1) else available.subList(first, last + 1)
         }
     }
 
     fun getAvgMonths(): Double {
-        return getAvgMonthDistance()
+        val currentYear = YearMonth.now().year
+        return if (currentYear == year) {
+            getAvgMonthDistance()
+        } else {
+            12.0 // whole year
+        }
     }
 
     fun availableCurrencies() : List<String> {
@@ -62,7 +69,7 @@ data class YearReportModel(
 
     fun balance(month: Month): Double {
         val date = DateTime(year, month.value, month.length(Year.isLeap(year.toLong())), 23, 59, 59)
-        return if (date.isAfterNow) 0.0 else transactionList.balance(date)
+        return if (date.isAfterNow && !isCurrentMonth(month)) 0.0 else transactionList.balance(date)
     }
 
     fun income(month: Month): Double {
@@ -86,10 +93,18 @@ data class YearReportModel(
     }
 
     fun avgExpenses(): Double {
-        val monthDistance = getAvgMonths()
         val currentMonth = YearMonth.now().month.value
-        val from = DateTime(year, currentMonth, 1, 0, 0, 0).minusMonths(monthDistance.toInt())
-        val to = DateTime(year, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
+        val currentYear = YearMonth.now().year
+        val from: DateTime
+        val to: DateTime
+        val monthDistance = getAvgMonths()
+        if (currentYear == year) {
+            from = DateTime(currentYear, currentMonth, 1, 0, 0, 0).minusMonths(monthDistance.toInt())
+            to = DateTime(currentYear, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
+        } else {
+            from = DateTime(year, 1, 1, 0, 0, 0).minusMonths(monthDistance.toInt())
+            to = DateTime(year, 12, 31, 23, 59, 59)
+        }
         return ( transactionList.incomeExpenses(from..to).second / monthDistance ).roundWithPrecision(2)
     }
 }

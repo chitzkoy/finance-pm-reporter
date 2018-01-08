@@ -37,18 +37,18 @@
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="${report.getAvailableYears()?seq_contains(report.year - 1)?string("", "disabled")}">
-            <a href="${report.getAvailableYears()?seq_contains(report.year - 1)?string("/${report.currency}/${report.currentYear(-1)}", "#")}" aria-label="Previous"
+            <a href="${report.getAvailableYears()?seq_contains(report.year - 1)?string("/report/${report.currency}/${report.currentYear(-1)}", "#")}" aria-label="Previous"
             <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <#list report.getPaginatorYears() as year>
             <li class="${(report.year == year)?string("active","")}">
-                <a href="/${report.currency}/${report.currentYear(year - report.year)}">${report.currentYear(year - report.year)}</a>
+                <a href="/report/${report.currency}/${report.currentYear(year - report.year)}">${report.currentYear(year - report.year)}</a>
             </li>
         </#list>
 
         <li class="${report.getAvailableYears()?seq_contains(report.year + 1)?string("", "disabled")}">
-            <a href="${report.getAvailableYears()?seq_contains(report.year + 1)?string("/${report.currency}/${report.currentYear(1)}", "#")}" aria-label="Next"
+            <a href="${report.getAvailableYears()?seq_contains(report.year + 1)?string("/report/${report.currency}/${report.currentYear(1)}", "#")}" aria-label="Next"
             <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
@@ -67,7 +67,7 @@
     <ul class="dropdown-menu" aria-labelledby="currencyDropdown">
         <#items as cur>
             <li class="${(report.currency == cur)?string("disabled","")}">
-                <a href="/${cur}/${report.currentYear(0)}">${cur}</a>
+                <a href="/report/${cur}/${report.currentYear(0)}">${cur}</a>
             </li>
         </#items>
     </ul>
