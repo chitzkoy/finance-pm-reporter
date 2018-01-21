@@ -1,16 +1,15 @@
-group 'com.chitzkoy.financepmreporter'
-version '0.0.1-SNAPSHOT'
-
 apply plugin: 'org.jetbrains.kotlin.frontend'
 apply plugin: 'kotlin2js'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile project(':common-js')
+
     compile "org.jetbrains:kotlin-react:$react_wrapper_version"
     compile "org.jetbrains:kotlin-react-dom:$react_wrapper_version"
 }
 
-// configure kotlin compiler
+//todo сдеать так, чтобы в бэкенд модуле гарантированно окаался main.bundle.js, без прямой зависимости на модуль фронтенда
+
 compileKotlin2Js {
     kotlinOptions.metaInfo = true
     kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
@@ -19,20 +18,27 @@ compileKotlin2Js {
     kotlinOptions.main = "call"
 }
 
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
 kotlinFrontend {
     downloadNodeJsVersion = 'latest'
 
     npm {
+        dependency "kotlin"
         dependency "react"
         dependency "react-dom"
+        dependency "js-joda"
     }
 
     webpackBundle {
         bundleName = "main"
 //        contentPath = file('src/main/web')
+//        outputFile = "$project.buildDir.path/js/${project.name}.js"
     }
-
-    sourceMaps = true
 }
 
 repositories {
@@ -43,6 +49,15 @@ jar.dependsOn 'bundle'
 bundle.doLast {
     copy {
         from project(':frontend').file('build/bundle')
-        into project(':frontend').file('build/resources/main/com/chitzkoy/financepmreporter/resources')
+        into project(':backend').file('build/resources/main/com/chitzkoy/financepmreporter/resources')
     }
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.kotlin
+}
+
+artifacts {
+    archives sourcesJar
 }

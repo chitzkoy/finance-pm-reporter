@@ -1,11 +1,11 @@
 package com.chitzkoy.financepmreporter.service
 
 import com.chitzkoy.financepmreporter.model.CategoryInfo
-import com.chitzkoy.financepmreporter.model.dao.imported.CategoryTO
-import com.chitzkoy.financepmreporter.model.dao.imported.TransactionTO
+import com.chitzkoy.financepmreporter.model.common.Month
+import com.chitzkoy.financepmreporter.model.common.LocalDate
+import com.chitzkoy.financepmreporter.model.to.CategoryTO
+import com.chitzkoy.financepmreporter.model.to.TransactionTO
 import com.chitzkoy.financepmreporter.util.roundWithPrecision
-import org.joda.time.DateTime
-import java.time.Month
 import java.time.YearMonth
 import java.util.function.Predicate
 
@@ -20,7 +20,14 @@ import java.util.function.Predicate
  *
  * @return суммарный баланс для последовательности транзакций.
  */
-internal fun Iterable<TransactionTO>.balance(byDate: DateTime? = null, currency: String? = null) : Double {
+internal fun Iterable<TransactionTO>.balance(byDate: LocalDate? = null, currency: String? = null) : Double {
+    return calculateBalance(this, byDate, currency)
+}
+internal fun Iterable<TransactionTO>.balance(byDate: Long? = null, currency: String? = null) : Double {
+    val date = LocalDate(byDate)
+    return calculateBalance(this, date, currency)
+}
+internal fun calculateBalance(transactions: Iterable<TransactionTO>, byDate: LocalDate? = null, currency: String? = null) : Double {
     val currencyPredicate: Predicate<TransactionTO> = Predicate { t ->
         if (currency != null) {
             t.account.currency.shortName == currency
@@ -31,13 +38,13 @@ internal fun Iterable<TransactionTO>.balance(byDate: DateTime? = null, currency:
 
     val datePredicate: Predicate<TransactionTO> = Predicate { t ->
         if (byDate != null) {
-            t.date <= byDate
+            t.date <= byDate.millis
         } else {
             true
         }
     }
 
-    val dateFiltered = this
+    val dateFiltered = transactions
             .filter { datePredicate.test(it) }
             .filter { currencyPredicate.test(it) }
             .filter { it.account.active }
@@ -64,7 +71,7 @@ internal fun Iterable<TransactionTO>.balance(byDate: DateTime? = null, currency:
  *
  * @return [Pair] "расход-доход" для заданного промежутка времени, где  first - доход (положительное значениче), second - расход (отрицательное значение).
  */
-internal fun Iterable<TransactionTO>.incomeExpenses(dateRange: ClosedRange<DateTime>, currency: String? = null) : Pair<Double,Double> {
+internal fun Iterable<TransactionTO>.incomeExpenses(dateRange: ClosedRange<LocalDate>, currency: String? = null) : Pair<Double,Double> {
     val currencyPredicate: Predicate<TransactionTO> = Predicate { t ->
         if (currency != null) {
             t.account.currency.shortName == currency
@@ -74,7 +81,7 @@ internal fun Iterable<TransactionTO>.incomeExpenses(dateRange: ClosedRange<DateT
     }
 
     val result = this
-            .filter { it.date in dateRange }
+            .filter { LocalDate(it.date) in dateRange }
             .filter { it.source == null }
             .filter { currencyPredicate.test(it) }
             .filter { it.account.active }
@@ -97,8 +104,8 @@ internal fun calculateAvgPerCategory(categories: Collection<CategoryTO>, currenc
 
     val now = YearMonth.now()
     val xMonthsAgo = now.minusMonths(months.toLong())
-    val from = DateTime(xMonthsAgo.year, xMonthsAgo.month.value, 1, 0, 0)
-    val to = DateTime(now.year, now.month.value, now.month.length(now.isLeapYear), 23, 59, 59)
+    val from = LocalDate(xMonthsAgo.year, xMonthsAgo.month.getValue(), 1, 0, 0)
+    val to = LocalDate(now.year, now.month.value, now.month.length(now.isLeapYear), 23, 59, 59)
     val transactions = transactionsInRange(from, to, currency).groupBy { it.category }
 
     val avgPerCategory: MutableMap<CategoryTO, Double> = mutableMapOf()
@@ -120,10 +127,12 @@ internal fun calculateTotalsPerMonth(
         categoryTotals: MutableMap<CategoryTO, MutableMap<Month, Double>>
 ) {
 
-    categorizationFunctions.forEach { category, sumFunction ->
+    categorizationFunctions.forEach { entry ->
+        val category = entry.key
+        val sumFunction = entry.value
         val totalsPerCategory: MutableMap<Month, Double> = mutableMapOf()
         Month.values().forEach { month ->
-            totalsPerCategory.put(month, sumFunction(month.value))
+            totalsPerCategory.put(month, sumFunction(month.getValue()))
         }
         categoryTotals.put(category, totalsPerCategory)
     }
@@ -164,15 +173,17 @@ internal fun calculateTotalsForChildCategories(
         }
     }
 
-    // calculate totalsPerMonth for each parent node
+    // calculate totalSumsPerMonth for each parent node
     for (i in range.reversed().subList(1, range.size)) {
         subCategoriesByLevel[i]!!.forEach { category ->
             val categoryInfo = extractSiblingsForCategory(childCategories, category).first { it.category == category }
-            val ownCategoryInfoSums = categoryInfo.totalsPerMonth
+            val ownCategoryInfoSums = categoryInfo.totalSumsPerMonth
             val lowLevelChilds = categoryInfo.childCategories
 
             lowLevelChilds.forEach { childCategory ->
-                childCategory.totalsPerMonth.forEach { month, sum ->
+                childCategory.totalSumsPerMonth.forEach { entry ->
+                    val month = entry.key
+                    val sum = entry.value
                     ownCategoryInfoSums[month] = ownCategoryInfoSums[month]!!.plus(sum)
                 }
                 categoryInfo.avg = categoryInfo.avg?.plus (childCategory.avg ?: 0.0)
@@ -183,20 +194,22 @@ internal fun calculateTotalsForChildCategories(
 }
 
 internal fun calculateTopLevelTotals(ownTopLevelTotals: MutableMap<Month, Double>?, childCategories: MutableList<CategoryInfo>): MutableMap<Month, Double> {
-    val topLevelTotals = ownTopLevelTotals ?: mutableMapOf()
+    val topLevelTotals : MutableMap<Month, Double> = ownTopLevelTotals ?: mutableMapOf()
 
     if (topLevelTotals.isEmpty() && childCategories.isEmpty()) {
         return mutableMapOf()
     }
 
     if (topLevelTotals.isEmpty()) {
-        childCategories.first().totalsPerMonth.forEach { month, _ ->
-            topLevelTotals.put(month, 0.0)
+        childCategories.first().totalSumsPerMonth.forEach { entry ->
+            topLevelTotals.put(entry.key, 0.0)
         }
     }
 
     childCategories.forEach { childCategory ->
-        childCategory.totalsPerMonth.forEach { month, sum ->
+        childCategory.totalSumsPerMonth.forEach { entry ->
+            val month = entry.key
+            val sum = entry.value
             topLevelTotals[month] = topLevelTotals[month]!! + sum
         }
     }
@@ -285,7 +298,7 @@ internal fun sumByMonth(transactions: List<TransactionTO>?, month: Int): Double 
     }
 
     val groupedTransactions = transactions.groupBy { transaction ->
-        transaction.date.monthOfYear().get() == month
+        LocalDate(transaction.date).monthOfYear == month
     }
 
     return if (groupedTransactions[true] != null) {

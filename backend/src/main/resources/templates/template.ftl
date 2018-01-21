@@ -39,9 +39,8 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<main class="container">
+<main class="container" id="root">
     <#nested "content"/>
-    <div id="root"></div>
 </main>
 </body>
 </html>

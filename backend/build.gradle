@@ -1,17 +1,14 @@
-group 'com.chitzkoy.financepmreporter'
-version '0.0.1-SNAPSHOT'
-
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
 dependencies {
-    compile project(':frontend')
+    compile project(':common-jvm')
 
     compile "com.beust:klaxon:0.30"
     compile "org.jetbrains.exposed:exposed:0.9.1"
     compile "com.h2database:h2:1.4.196"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.ktor:ktor-core:$ktor_version"
     compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
@@ -25,15 +22,15 @@ dependencies {
     testCompile "org.jetbrains.ktor:ktor-test-host:$ktor_version"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
-sourceSets {
-    main.java.srcDirs += "src/main/java"
-    main.resources.srcDirs += "src/main/resources"
-    main.kotlin.srcDirs += "src/main/kotlin"
-    test.java.srcDirs += "src/test/java"
-    test.kotlin.srcDirs += "src/test/kotlin"
-    test.resources.srcDirs += "src/test/resources"
-}
+//
+//sourceSets {
+//    main.java.srcDirs += "src/main/java"
+//    main.resources.srcDirs += "src/main/resources"
+//    main.kotlin.srcDirs += "src/main/kotlin"
+//    test.java.srcDirs += "src/test/java"
+//    test.kotlin.srcDirs += "src/test/kotlin"
+//    test.resources.srcDirs += "src/test/resources"
+//}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -54,7 +51,6 @@ kotlin {
 mainClassName = "com.chitzkoy.financepmreporter.MainKt"
 
 task native2ascii doLast {
-
     ant.delete() {
         fileset(dir: "${processResources.destinationDir}") {
             include(name: '*.properties')
@@ -66,4 +62,5 @@ task native2ascii doLast {
             encoding: 'UTF-8')
 }
 
+jar.dependsOn ':frontend:assemble'
 assemble.dependsOn 'native2ascii'

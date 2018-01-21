@@ -1,9 +1,31 @@
-group 'com.chitzkoy.financepmreporter'
-version '0.0.1-SNAPSHOT'
+allprojects {
+    group 'com.chitzkoy.financepmreporter'
+    version '0.0.1-SNAPSHOT'
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.20'
+    ext.html_version = '0.6.6'
+    ext.ktor_version = '0.4.0'
+    ext.react_wrapper_version = '16.2.0-pre.17-kotlin-1.2.0'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.eriwen:gradle-js-plugin:2.14.1"
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 
 subprojects { p ->
     p.buildscript {
-        ext.kotlin_version = "1.2.10"
+        ext.kotlin_version = "1.2.20"
+//        ext.serialization_version = "0.4"
 
         repositories {
             mavenLocal()
@@ -13,16 +35,18 @@ subprojects { p ->
 
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.23"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.26"
+//            classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
         }
     }
 }
 
 subprojects {
-    ext.kotlin_version = "1.2.10"
-    ext.html_version = "0.6.6"
-    ext.ktor_version = "0.4.0"
-    ext.react_wrapper_version = "16.2.0-pre.17-kotlin-1.2.0"
+//    ext.kotlin_version = "1.2.20"
+////    ext.serialization_version = "0.4"
+//    ext.html_version = "0.6.6"
+//    ext.ktor_version = "0.4.0"
+//    ext.react_wrapper_version = "16.2.0-pre.17-kotlin-1.2.0"
 
     repositories {
         mavenLocal()

@@ -1,5 +1,6 @@
 package com.chitzkoy.financepmreporter.model.dao.imported
 
+import com.chitzkoy.financepmreporter.model.to.AccountTO
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -29,39 +30,39 @@ object Accounts : IntIdTable("Account") {
     val active = bool("active")
 }
 
-class AccountTO(
-        val id: Int,
-        val name: String,
-        val balance: Double,
-        val currency: CurrencyTO,
-        val active : Boolean
-) : Serializable {
-
-    override fun toString(): String {
-        return "AccountTO(name='$name', balance=$balance, currency=$currency, active=$active)"
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as AccountTO
-
-        if (id != other.id) return false
-        if (name != other.name) return false
-        if (balance != other.balance) return false
-        if (currency != other.currency) return false
-        if (active != other.active) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = id
-        result = 31 * result + name.hashCode()
-        result = 31 * result + balance.hashCode()
-        result = 31 * result + currency.hashCode()
-        result = 31 * result + active.hashCode()
-        return result
-    }
-}
+//class AccountTO(
+//        val id: Int,
+//        val name: String,
+//        val balance: Double,
+//        val currency: CurrencyTO,
+//        val active : Boolean
+//) : Serializable {
+//
+//    override fun toString(): String {
+//        return "AccountTO(name='$name', balance=$balance, currency=$currency, active=$active)"
+//    }
+//
+//    override fun equals(other: Any?): Boolean {
+//        if (this === other) return true
+//        if (javaClass != other?.javaClass) return false
+//
+//        other as AccountTO
+//
+//        if (id != other.id) return false
+//        if (name != other.name) return false
+//        if (balance != other.balance) return false
+//        if (currency != other.currency) return false
+//        if (active != other.active) return false
+//
+//        return true
+//    }
+//
+//    override fun hashCode(): Int {
+//        var result = id
+//        result = 31 * result + name.hashCode()
+//        result = 31 * result + balance.hashCode()
+//        result = 31 * result + currency.hashCode()
+//        result = 31 * result + active.hashCode()
+//        return result
+//    }
+//}

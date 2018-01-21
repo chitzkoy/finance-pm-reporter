@@ -1,6 +1,8 @@
 package com.chitzkoy.financepmreporter.model.dao
 
 import com.chitzkoy.financepmreporter.model.dao.imported.*
+import com.chitzkoy.financepmreporter.model.to.CategoryTO
+import com.chitzkoy.financepmreporter.model.to.CurrencyTO
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

@@ -1,3 +1,6 @@
 rootProject.name = 'finance-pm-reporter'
-include 'frontend'
-include 'backend'
+include ':common'
+include ':common-js'
+include ':common-jvm'
+include ':frontend'
+include ':backend'

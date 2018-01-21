@@ -1,0 +1,31 @@
+apply plugin: 'kotlin-platform-js'
+
+dependencies {
+    expectedBy project(":common")
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
+
+[compileKotlin2Js, compileTestKotlin2Js]*.configure {
+    kotlinOptions.moduleKind = "commonjs"
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.kotlin
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+//
+//sourceSets {
+//    main.java.srcDirs += "src/main/java"
+//    main.resources.srcDirs += "src/main/resources"
+//    main.kotlin.srcDirs += "src/main/kotlin"
+//    test.java.srcDirs += "src/test/java"
+//    test.kotlin.srcDirs += "src/test/kotlin"
+//    test.resources.srcDirs += "src/test/resources"
+//}

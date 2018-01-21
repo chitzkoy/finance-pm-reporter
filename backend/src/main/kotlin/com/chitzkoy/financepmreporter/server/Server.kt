@@ -18,6 +18,7 @@ import org.jetbrains.ktor.features.DefaultHeaders
 import org.jetbrains.ktor.features.StatusPages
 import org.jetbrains.ktor.freemarker.FreeMarker
 import org.jetbrains.ktor.freemarker.FreeMarkerContent
+import org.jetbrains.ktor.gson.GsonSupport
 import org.jetbrains.ktor.host.embeddedServer
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.netty.Netty
@@ -31,11 +32,11 @@ fun startServer() = embeddedServer(
         Netty,
         Property["server.port"].toInt(),
         watchPaths = listOf("MainKt"),
-        module = Application::module).start(wait = true)
+        module = Application::main).start(wait = true)
 
 val reportService = ReportService()
 
-fun Application.module() {
+fun Application.main() {
     Database()
 
     install(DefaultHeaders)
@@ -44,6 +45,7 @@ fun Application.module() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(Application::class.java.classLoader, Property["freemarker.path"])
     }
+    install(GsonSupport)
     install(StatusPages) {
         exception<Throwable> {
             println(it)

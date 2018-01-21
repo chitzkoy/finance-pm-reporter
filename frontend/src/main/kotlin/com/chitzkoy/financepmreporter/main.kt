@@ -1,8 +1,14 @@
 package com.chitzkoy.financepmreporter
 
+import com.chitzkoy.financepmreporter.util.getYearReport
+import com.chitzkoy.financepmreporter.util.launch
+import com.chitzkoy.financepmreporter.widgets.report.Panel
+import kotlinx.html.colorInput
+import kotlinx.html.js.onClickFunction
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventListener
 import react.RBuilder
+import react.dom.a
 import react.dom.div
 import react.dom.jsStyle
 import react.dom.render
@@ -11,10 +17,10 @@ import kotlin.browser.window
 
 fun main(args: Array<String>) {
     println("Hello JavaScript!")
-    window.addEventListener("DOMContentLoaded", EventListener { event -> startUp(event) }, false)
+    window.addEventListener("DOMContentLoaded", EventListener { _ -> startUp() }, false)
 }
 
-fun startUp(event : Event) {
+fun startUp() {
     val rootDiv = document.getElementById("root")
     render(rootDiv) {
         app()
@@ -22,6 +28,7 @@ fun startUp(event : Event) {
 }
 
 fun RBuilder.app() {
+//
     div {
         // Three different ways to define style properties are listed below
         attrs.jsStyle = kotlinext.js.js {
@@ -30,6 +37,7 @@ fun RBuilder.app() {
 
         attrs {
             jsStyle {
+                colorInput {  }
                 height = "100px"
             }
         }
@@ -42,6 +50,20 @@ fun RBuilder.app() {
         // Setting a custom attribute
         attrs["my-attribute"] = "my-value"
         attrs["class"] = "class"
+
+        a(href = "javascript:void(0)") {
+//            attrs.onClickFunction = {
+//                launch {
+//                    val model = getYearReport(2017, "RUB")
+//                    val rootDiv = document.getElementById("root")
+//                    render(rootDiv) {
+//                        Panel(Panel.Props(model))
+//                    }
+//                }
+//            }
+
+            +"Year Report"
+        }
 
         // Appending children from props
 //        props.children()

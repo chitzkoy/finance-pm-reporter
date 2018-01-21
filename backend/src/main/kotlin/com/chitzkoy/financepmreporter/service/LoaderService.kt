@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteAll
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.DateTime
+import com.chitzkoy.financepmreporter.model.common.LocalDate
 import java.math.BigDecimal
 
 
@@ -118,7 +118,7 @@ class LoaderService {
                 this[TransactionsLoader.name] = json["name"].toString()
                 this[TransactionsLoader.type] = json["type"].toString().toInt()
                 this[TransactionsLoader.categoryId] = json["categoryId"].toString().toInt().toNullIfZero()
-                this[TransactionsLoader.date] = DateTime(json["date"].toString().toLong())
+                this[TransactionsLoader.date] = LocalDate(json["date"].toString().toLong())
                 this[TransactionsLoader.sum] = BigDecimal.valueOf(json["sum"].toString().toDouble().roundWithPrecision(2))
                 this[TransactionsLoader.accountId] = json["accountId"].toString().toInt()
                 this[TransactionsLoader.description] = json["description"].toString()

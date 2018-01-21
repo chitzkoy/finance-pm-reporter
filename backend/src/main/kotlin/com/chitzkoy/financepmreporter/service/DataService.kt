@@ -5,7 +5,10 @@ import com.chitzkoy.financepmreporter.model.dao.imported.*
 import com.chitzkoy.financepmreporter.util.defaultConfig
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.joda.time.DateTime
+import com.chitzkoy.financepmreporter.model.common.LocalDate
+import com.chitzkoy.financepmreporter.model.to.CategoryTO
+import com.chitzkoy.financepmreporter.model.to.CurrencyTO
+import com.chitzkoy.financepmreporter.model.to.TransactionTO
 import java.time.Year
 
 /**
@@ -20,7 +23,7 @@ fun allTransactions(currencyCode: String): List<TransactionTO> {
                 .toList()
     }
 }
-fun transactionsInRange(fromDate: DateTime, toDate: DateTime, currencyCode: String): List<TransactionTO> {
+fun transactionsInRange(fromDate: LocalDate, toDate: LocalDate, currencyCode: String): List<TransactionTO> {
     return transaction {
         return@transaction Transaction
                 .find { (Transactions.date greaterEq fromDate) and (Transactions.date lessEq toDate) }
@@ -47,7 +50,7 @@ fun allRegularCategories() : List<RegularCategoryTO> {
     }
 }
 
-fun getAvgMonthDistance(): Double {
+fun getAvgMonthDistance(): Int {
     var param: ConfigTO? = null
     transaction {
         param = Config.find { (Configs.param eq "avgMonths") }.first().toTO()
@@ -55,7 +58,7 @@ fun getAvgMonthDistance(): Double {
     if (param == null) {
         param = defaultConfig().first { it.param == "avgMonths" }
     }
-    return param?.value!!.toDouble()
+    return param?.value!!.toInt()
 }
 
 fun getAvailableYearsRange(): IntRange {
