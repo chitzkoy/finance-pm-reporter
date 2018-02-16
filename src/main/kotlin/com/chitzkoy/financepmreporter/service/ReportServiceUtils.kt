@@ -217,6 +217,9 @@ internal fun calculateTopLevelAvg(ownTopLevelAvg: Double?, childCategories: Muta
     return if (topLevelAvg != 0.0) topLevelAvg else null
 }
 
+/**
+ * Extracts list of siblings of selected category from upper-level category
+ */
 internal fun extractSiblingsForCategory(childCategories: MutableList<CategoryInfo>, category: CategoryTO): MutableList<CategoryInfo> {
     fun findAncestorOfLevel(category: CategoryTO, level: Int): CategoryTO {
         val ownLevel = foldLevelFromTop(category)
@@ -231,7 +234,13 @@ internal fun extractSiblingsForCategory(childCategories: MutableList<CategoryInf
 
     var tmp = childCategories
     for (level in 1 until foldLevelFromTop(category)) {
-        tmp = tmp.first { it.category == findAncestorOfLevel(category, level) }.childCategories
+        val levelAncestor = findAncestorOfLevel(category, level)
+        val categoryInfo = tmp.firstOrNull { it.category == levelAncestor }
+        if (categoryInfo != null) {
+            tmp = categoryInfo.childCategories
+        } else {
+            break
+        }
     }
     return tmp
 }

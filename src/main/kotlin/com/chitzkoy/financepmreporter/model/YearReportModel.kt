@@ -52,8 +52,8 @@ data class YearReportModel(
         }
     }
 
-    fun getAvgMonths(): Double {
-        return getAvgMonthDistance()
+    fun getAvgMonths(): Long {
+        return getAvgMonthDistance().toLong()
     }
 
     fun availableCurrencies() : List<String> {
@@ -79,17 +79,17 @@ data class YearReportModel(
 
     fun avgIncome(): Double {
         val monthDistance = getAvgMonths()
-        val currentMonth = YearMonth.now().month.value
-        val from = DateTime(year, (currentMonth - monthDistance).toInt(), 1, 0, 0, 0)
-        val to = DateTime(year, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
+        val currentMonth = YearMonth.now().month
+        val from = DateTime(year, currentMonth.minus(monthDistance).value, 1, 0, 0, 0)
+        val to = DateTime(year, currentMonth.value, currentMonth.length(Year.isLeap(year.toLong())), 23, 59, 59)
         return ( transactionList.incomeExpenses(from..to).first / monthDistance ).roundWithPrecision(2)
     }
 
     fun avgExpenses(): Double {
         val monthDistance = getAvgMonths()
-        val currentMonth = YearMonth.now().month.value
-        val from = DateTime(year, (currentMonth - monthDistance).toInt(), 1, 0, 0, 0)
-        val to = DateTime(year, currentMonth, Month.of(currentMonth).length(Year.isLeap(year.toLong())), 23, 59, 59)
+        val currentMonth = YearMonth.now().month
+        val from = DateTime(year, currentMonth.minus(monthDistance).value, 1, 0, 0, 0)
+        val to = DateTime(year, currentMonth.value, currentMonth.length(Year.isLeap(year.toLong())), 23, 59, 59)
         return ( transactionList.incomeExpenses(from..to).second / monthDistance ).roundWithPrecision(2)
     }
 }

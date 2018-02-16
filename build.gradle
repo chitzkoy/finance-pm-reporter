@@ -2,7 +2,7 @@ group 'com.chitzkoy.financepmreporter'
 version '0.0.1-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.2.0'
+    ext.kotlin_version = '1.2.20'
     ext.ktor_version = '0.4.0'
 
     repositories {
@@ -66,11 +66,10 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "com.beust:klaxon:0.30"
     compile "org.jetbrains.exposed:exposed:0.9.1"
     compile "com.h2database:h2:1.4.196"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile "org.jetbrains.ktor:ktor-core:$ktor_version"
     compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
     compile "org.jetbrains.ktor:ktor-html-builder:$ktor_version"
